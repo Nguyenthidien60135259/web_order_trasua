@@ -10,11 +10,11 @@ class Category extends Model
     
     public $timestamps = false;
     protected $fillable = [
-        'category_name'
+        'name'
     ];
     protected $table = 'category';
-    public function products()
-    {
-        $this->hasMany('App\Models\Product','category_id','id');
+    protected $primaryKey = 'id';
+    public function product(){
+        return $this->hasMany('App\Models\Product');
     }
 }

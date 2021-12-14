@@ -4,20 +4,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Admin\ProductController;
 use App\Http\Controllers\API\Admin\CategoryController;
+use App\Http\Controllers\API\Admin\SizeController;
 use App\Http\Controllers\API\Admin\ToppingController;
-use App\Models\Category;
-use App\Models\Topping;
+use App\Http\Controllers\API\Admin\CommentController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+
+
+
+
+
+
+
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -45,3 +44,19 @@ Route::post("topping_create",[ToppingController::class,'store']);
 Route::get("topping_show/{id}",[ToppingController::class,'show']);
 Route::post("topping_update/{id}",[ToppingController::class,'update']);
 Route::post("topping_delete/{id}",[ToppingController::class,'destroy']);
+
+
+
+//Size
+Route::get("size_list",[SizeController::class,'index']);
+Route::post("size_create",[SizeController::class,'store']);
+Route::get("size_show/{id}",[SizeController::class,'show']);
+Route::post("size_update/{id}",[SizeController::class,'update']);
+Route::post("size_delete/{id}",[SizeController::class,'destroy']);
+
+
+
+
+//Comment
+Route::get("comment_list",[CommentController::class,'index']);
+Route::post("comment_delete/{id}",[CommentController::class,'destroy']);

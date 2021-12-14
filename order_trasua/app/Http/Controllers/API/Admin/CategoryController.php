@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -15,59 +14,68 @@ class CategoryController extends Controller
     {
         //
         $category = Category::all();
-        return response()->json($category);
+        return response()->json(['data'=>["category"=>$category]]);
     }
 
     
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'category_name'=>'required|unique:category|max:50'
+            'name'=>'required|string|max:50'
         ]);
         
         // check validator ?
         if($validator->fails())
         {
-            return response()->json(['message' => $validator->errors()], 404);
+            return response()->json(['message' => $validator->errors()], 422);
         }
         
         $category = Category::create([
-           'category_name' => $request->category_name 
+           'name' => $request->name
         ]);
         $category->save();
         return response()->json([
            "message" => "Create category successfully",
-           "data" =>  $category
+           "data" =>  [
+               'category'=>$category
+               ]
         ]);
-        
-        
     }
 
     
     public function show($id)
     {
         $category = Category::find($id);
-        return response()->json(['data'=>$category ]);
+        if($category){
+            return response()->json(['data'=>["category"=>$category]]);
+        }
+        else{
+            return response()->json(['messge'=>"Not found"]);
+        }
     }
 
     
     public function update(Request $request, $id)
     {
+        // dd($request->name);
+        // exit();
         $category = Category::find($id);
         if($category)
         {
             $validator = Validator::make($request->all(),[
-                'category_name' => 'required|unique:category|max:50',
+                'name' => 'required|string|max:50',
             ]);
             if($validator->fails()){
                 return response()->json(['message'=>$validator->errors()],422);
             }
             $category->update([
-               'category_name' => $request->category_name 
+               'name' => $request->name 
             ]);
             return response()->json([
                 'message'=>"Update Category Successfully",
-                'data'=>$category
+                'data'=>[
+                    'category'=>$category
+                ]
             ]);
         }   
         else
@@ -83,7 +91,7 @@ class CategoryController extends Controller
         if($category)
         {
             $category->delete();
-            return response()->json(['message'=>'Delete Successfully'],200);
+            return response()->json(['message'=>'Delete Successfully']);
         }
         return response()->json(["message"=>"Not found!!"]);
     }

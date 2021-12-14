@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'product_name','product_desc','product_price','product_price_cost','product_image', 'product_status','category_id'
+        'name', 'desc', 'price', 'size_id', 'image', 'status', 'category_id'
     ];
     
     protected $primaryKey = 'id';
@@ -17,6 +18,16 @@ class Product extends Model
      
     public function category()
     {
-        $this->belongsTo('App\Models\Category','category_id','id');
+        $this->belongsTo('App\Models\Category','category_id');
+    }
+    
+    public function size()
+    {
+        $this->belongsTo("App\Models\Size","size_id");
+    }
+    
+    public function comment()
+    {
+        $this->hasMany("App\Models\Comment");
     }
 }

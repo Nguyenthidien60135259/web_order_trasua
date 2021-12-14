@@ -9,7 +9,8 @@ class Topping extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-      'topping_name','topping_image','topping_price'  
+      'name','image','price'  
     ];
+    protected $primaryKey = 'id';
     protected $table = 'toppings';
 }
