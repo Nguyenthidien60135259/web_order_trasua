@@ -9,7 +9,7 @@ class Customer extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'name','dateOfBirth','sex','address','phone','user_id'
+        'name','email','password','dateOfBirth','sex','address','phone','user_id'
     ];
     protected $table = 'customers';
     protected $primaryKey = 'id';

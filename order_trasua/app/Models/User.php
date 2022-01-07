@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'roles_id'
     ];
 
     /**
@@ -30,8 +31,21 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'roles_id',
         'remember_token',
     ];
+
+    protected $primaryKey = 'id';
+    protected $table = 'users';
+
+   public function roles()
+   {
+       $this->belongsTo('App\Models\Roles','roles_id','id');
+   }
+   public function customers()
+   {
+       $this->belongsTo('App\Models\Customer','customer_id','id');
+   }
 
     /**
      * The attributes that should be cast.
