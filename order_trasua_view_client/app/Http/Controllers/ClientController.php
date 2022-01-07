@@ -94,7 +94,7 @@ class ClientController extends Controller
     }
     public function postSignUp(Request $request)
     {
-        $response = Http::post("http://127.0.0.1:8001/api/auth/register",[
+        $response = Http::post("http://127.0.0.1:8001/api/postsignUp",[
             'name'=>$request->name,
             'email'=>$request->email,
             'password'=>$request->password,
@@ -106,7 +106,12 @@ class ClientController extends Controller
         ]);
         $data = json_decode($response);
         // dd($data);
-        return redirect('getLogin')->with('thongbao','Đăng ký thành công');
+        if($data->message == "User successfully registered") 
+        {
+            return redirect('getLogin')->with('thongbao','Đăng ký thành công');
+        } else {
+            return redirect('getsignUp')->with('thongbao', 'Đăng ký không thành công');
+        }
     }
 
     public function getLogin(){

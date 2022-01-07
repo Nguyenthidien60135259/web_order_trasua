@@ -68,7 +68,7 @@ Route::get('logout', [UserController::class,'logout']);
 Route::get('search/{key}',[PagesController::class,'find']);
 Route::post('comment',[PagesController::class,'postComment']);
 Route::get('checkOut/{id}',[PagesController::class,'getCheckOut']);
-Route::post('postcheckOut',[CartController::class,'postCheckOut']);
+Route::post('postCheckOut',[CartController::class,'postCheckOut']);
 
 //cart
 Route::get('show','App\Http\Controllers\CartController@show');

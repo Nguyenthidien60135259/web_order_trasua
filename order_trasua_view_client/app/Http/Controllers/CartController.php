@@ -1,10 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
-
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 
@@ -94,7 +92,7 @@ class CartController extends Controller
 		$cart = unserialize(Cookie::get('item'));
 		$cartjson= json_encode($cart);
 		$user_id = Auth::user();
-		$response = Http::post("http://127.0.0.1:8001/api/postcheckOut/", [
+		$response = Http::post("http://127.0.0.1:8001/api/postCheckOut/", [
 			'total' => $request->subtotal,
 			'cart' => $cartjson,
 			'name' => $request->name,

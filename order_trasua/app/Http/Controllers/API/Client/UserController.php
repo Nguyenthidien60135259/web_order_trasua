@@ -30,14 +30,19 @@ class UserController extends Controller
             'sex' => 'required|boolean',
             'address' => 'required|string|between:10,100'
         ]);
+
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 422);
+            return response()->json($validator->errors()->toJson(), 400);
         }
 
+        // $user = User::create(array_merge(
+        //             $validator->validated(),
+        //             ['password' => bcrypt($request->password)]
+        //         ));
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password = bcrypt($request->password),
+            'password' => bcrypt($request->password),
             'roles_id' => $request->roles_id = 3
         ]);
         $user->save();
@@ -57,9 +62,9 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'User successfully registered',
-            'data' => [
-                'user' => $user,
-                'customer' => $customer
+            'data'=>[
+                'user'=>$user,
+                'customer'=>$customer
             ]
         ], 201);
     }

@@ -76,8 +76,6 @@ class PagesController extends Controller
         ]);
     }
 
-    
-
     // dangky
     function postSignUp(Request $request)
     {
