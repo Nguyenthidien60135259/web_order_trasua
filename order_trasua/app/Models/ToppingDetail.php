@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderDetail extends Model
+class ToppingDetail extends Model
 {
     use HasFactory;
+    use HasFactory;
     protected $fillable = [
-        'order_id', 'product_id', 'quantity','listTopping','size_id'
+        'order_id', 'product_id', 'topping_id'
     ];
-    protected $table = 'order_details';
+    protected $table = 'topping_details';
     public function product()
     {
         return $this->hasMany('App\Models\Product', 'product_id','id');
@@ -22,6 +23,6 @@ class OrderDetail extends Model
     }
     public function size()
     {
-        return $this->hasMany("App\Models\Size", "size_id",'id');
+        return $this->hasMany("App\Models\Topping", "topping_id",'id');
     }
 }

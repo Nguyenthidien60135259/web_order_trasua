@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -90,35 +92,24 @@ class CartController extends Controller
 	public function postCheckOut(Request $request)
 	{
 		$cart = unserialize(Cookie::get('item'));
-		$cartjson= json_encode($cart);
-		$user_id = Auth::user();
-		$response = Http::post("http://127.0.0.1:8001/api/postCheckOut/", [
+		$cartjson = json_encode($cart);
+		$user_id = Auth::user()->id;
+		$response = Http::withHeaders([
+			'X-First' => 'foo',
+			'X-Second' => 'bar',
+			'content-type' => 'application/json; charset=utf8'
+		])->post("http://127.0.0.1:8001/api/postCheckOut/", [
 			'total' => $request->subtotal,
 			'cart' => $cartjson,
 			'name' => $request->name,
 			'address' => $request->address,
 			'phone' => $request->phone,
-			'note'=>$request->note,
-			'user_id'=>$user_id,
+			'note' => $request->note,
+			'user_id' => $user_id,
 		]);
-		// $type = [];
-		// if(count($cart)>0){
-		// 	foreach ($cart as $key=>$item) {        
-		// 		array_push($type, $item);   
-        //     }
-		// }
 		
-		// $chuyen1= explode(" " ,$cart);
-		// $chuyen =implode(" ", $type);
-		// dd($chuyen1);
-		// }
-        //     foreach ($products as $item) {
-        //         if (($item->category_id) == ($type->id)) {
-        //             array_push($type->products, $item);
-        //         }
-        //     }
 		$data = json_decode($response);
-		dd($data);
+		// dd($data);
 		Cookie::queue(Cookie::forget('item'));
 		return redirect('wait');
 	}

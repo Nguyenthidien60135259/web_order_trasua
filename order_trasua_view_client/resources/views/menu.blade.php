@@ -78,7 +78,7 @@
                                                 <h3><a href="/detail/{{ $new->id }}">{{$new->name}}</a></h3>
                                                 <!-- <p>{{$new->name}}</p> -->
                                                 <p class="price"><span>{{ number_format($new->price,0,',','.') }} đ</span></p>
-                                                <p><a href="{{ url('add-to-cart/'.$new->id) }}" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+                                                <p><a href="{{ url('add-cart/'.$new->id) }}" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                                 <h3><a href="/detail/{{ $expensive->id }}">{{$expensive->name}}</a></h3>
                                                 <!-- <p>{{$expensive->desc}}</p> -->
                                                 <p class="price"><span>{{ number_format($expensive->price,0,',','.') }} đ</span></p>
-                                                <p><a href="{{ url('add-to-cart/'.$expensive->id) }}" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+                                                <p><a href="{{ url('add-cart/'.$expensive->id) }}" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
                                             </div>
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                                                 <h3><a href="/detail/{{ $cheap->id }}"></a>{{$cheap->name}}</h3>
                                                 <!-- <p>{{$cheap->desc}}</p> -->
                                                 <p class="price"><span>{{ number_format($cheap->price,0,',','.') }} đ</span></p>
-                                                <p><a href="{{ url('add-to-cart/'.$cheap->id) }}" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+                                                <p><a href="{{ url('add-cart/'.$cheap->id) }}" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
                                             </div>
                                         </div>
                                     </div>

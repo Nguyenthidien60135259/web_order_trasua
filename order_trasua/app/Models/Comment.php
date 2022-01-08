@@ -19,6 +19,6 @@ class Comment extends Model
  		return $this->belongsTo('App\Models\Product','product_id','id');
  	}
      public function customer(){
-        return $this->belongsTo('App\Models\Customer','product_id','id');
+        return $this->belongsTo('App\Models\Customer','customer_id','id');
     }
 }

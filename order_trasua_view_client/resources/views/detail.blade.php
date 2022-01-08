@@ -6,7 +6,6 @@
     width: 100%;
     padding: 10px;
   }
-
   .monthem {
     margin-bottom: 30px;
   }
@@ -106,7 +105,6 @@
       </div>
       <hr>
       @endif
-
       <!-- Comment -->
       @foreach($type as $cm)
                 <div class="media">

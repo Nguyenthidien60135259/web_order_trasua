@@ -9,13 +9,16 @@ class Order extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'customer_id','total','status','name','address','phone','note','table_id'
+        'customer_id','total','status','name','address','order_date','phone','note','table_id'
     ];
     protected $table = 'orders';
-    protected $primaryKey = 'id';
     public function customer()
     {
         return $this->belongsTo('App\Models\Customer', 'customer_id');
+    }
+    public function tb_table()
+    {
+        return $this->belongsTo('App\Models\Table', 'table_id','id');
     }
 }
 ?>
