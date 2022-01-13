@@ -56,7 +56,11 @@ class CartController extends Controller
             $order = Order::create([
                 'customer_id' => $customer_id,
                 'total' => $req->total,
+<<<<<<< HEAD
                 'status' => $req->status = 0,
+=======
+                'status' => $req->status = 1,
+>>>>>>> 537cd46524d66fae9e7152023001d5763addfcf9
                 'name' => $req->name,
                 'address' => $req->address,
                 'phone' => $req->phone,

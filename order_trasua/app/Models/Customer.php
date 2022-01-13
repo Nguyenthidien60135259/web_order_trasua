@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    public $timestamps = false;
     protected $fillable = [
         'name','email','password','dateOfBirth','sex','address','phone','user_id'
     ];

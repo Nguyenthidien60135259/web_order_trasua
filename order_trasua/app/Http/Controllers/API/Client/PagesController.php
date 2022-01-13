@@ -77,7 +77,10 @@ class PagesController extends Controller
     }
 
     // dangky
+<<<<<<< HEAD
 
+=======
+>>>>>>> 537cd46524d66fae9e7152023001d5763addfcf9
     function postSignUp(Request $request)
     {
         $validator = Validator::make($request->all(), [

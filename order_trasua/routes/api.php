@@ -8,16 +8,20 @@ use App\Http\Controllers\API\Admin\CategoryController;
 use App\Http\Controllers\API\Admin\SizeController;
 use App\Http\Controllers\API\Admin\ToppingController;
 use App\Http\Controllers\API\Admin\CommentController;
+<<<<<<< HEAD
 use App\Http\Controllers\API\Admin\OrderController;
 use App\Http\Controllers\API\Admin\InventoryController;
 
 
 use App\Http\Controllers\API\Admin\LoginController;
+=======
+>>>>>>> 537cd46524d66fae9e7152023001d5763addfcf9
 use App\Http\Controllers\API\Client\PagesController;
 use App\Http\Controllers\API\Client\UserController;
 use App\Http\Controllers\API\Client\CartController;
 
 
+<<<<<<< HEAD
 ////////////////////     ADMIN    ///////////////////////////
 // Login, register, logout
 
@@ -29,6 +33,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
     Route::post('logout', [LoginController::class, 'logout']);
+=======
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+>>>>>>> 537cd46524d66fae9e7152023001d5763addfcf9
 });
 
 
@@ -70,6 +78,7 @@ Route::post("size_delete/{id}",[SizeController::class,'destroy']);
 Route::get("comment_list",[CommentController::class,'index']);
 Route::post("comment_delete/{id}",[CommentController::class,'destroy']);
 
+<<<<<<< HEAD
 
 // Order
 Route::get("order_list",[OrderController::class,'index']);
@@ -90,6 +99,9 @@ Route::get("update_inventory/{id}",[InventoryController::class,'update_inventory
 
 
 //////////////////////////////   Client ///////////////////////////
+=======
+//      Client
+>>>>>>> 537cd46524d66fae9e7152023001d5763addfcf9
 Route::get('home',[PagesController::class,'index']);
 Route::get('menu',[PagesController::class,'menu']);
 Route::get('menu/{id}',[PagesController::class,'detail']);
@@ -105,7 +117,13 @@ Route::get('checkOut/{id}',[PagesController::class,'getCheckOut']);
 Route::post('postCheckOut',[CartController::class,'postCheckOut']);
 
 //cart
+<<<<<<< HEAD
 Route::get('show','App\Http\Controllers\API\Client\CartController@show');
 Route::get('addtocart/{id}', [CartController::class,'addToCart']);
 Route::patch('update-cart', [ProductController::class, 'update']);
 
+=======
+Route::get('show','App\Http\Controllers\CartController@show');
+Route::get('addtocart/{id}', [CartController::class,'addToCart']);
+Route::patch('update-cart', [ProductController::class, 'update']);
+>>>>>>> 537cd46524d66fae9e7152023001d5763addfcf9

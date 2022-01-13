@@ -30,3 +30,5 @@ class Product extends Model
         $this->hasMany("App\Models\Comment");
     }
 }
+?>
+
