@@ -15,6 +15,7 @@ class CommentController extends Controller
         $comment = $data->data->comment;
         $product = $data->data->product;
         $customer = $data->data->customer;
+        
         foreach ($comment as $type) {
             $type->product=[];
             foreach($product as $item)

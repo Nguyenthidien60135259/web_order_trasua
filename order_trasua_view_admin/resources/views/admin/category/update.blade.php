@@ -19,7 +19,7 @@
                         @csrf
 						<div class="form-group">
 							<label for="exampleInputEmail1">Tên danh mục</label>
-							<input type="text" name="name" class="form-control" value="">
+							<input type="text" name="name" class="form-control" value="{{$category->name}}">
 						</div>
                     	<button type="submit" class="btn btn-info">Cập nhật danh mục</button>
                     </form>

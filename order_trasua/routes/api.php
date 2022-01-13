@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Admin\ProductController;
@@ -7,21 +8,29 @@ use App\Http\Controllers\API\Admin\CategoryController;
 use App\Http\Controllers\API\Admin\SizeController;
 use App\Http\Controllers\API\Admin\ToppingController;
 use App\Http\Controllers\API\Admin\CommentController;
+use App\Http\Controllers\API\Admin\OrderController;
+use App\Http\Controllers\API\Admin\InventoryController;
 
 
+use App\Http\Controllers\API\Admin\LoginController;
+use App\Http\Controllers\API\Client\PagesController;
+use App\Http\Controllers\API\Client\UserController;
+use App\Http\Controllers\API\Client\CartController;
 
 
-
-
-
-
-
-
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 ////////////////////     ADMIN    ///////////////////////////
+// Login, register, logout
+
+
+Route::post('register', [LoginController::class,'register']);
+Route::post('login', [LoginController::class,'login']);
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('user', function(Request $request) {
+        return auth()->user();
+    });
+    Route::post('logout', [LoginController::class, 'logout']);
+});
+
 
 //Product
 Route::get('products_list',[ProductController::class,'index']);
@@ -60,3 +69,43 @@ Route::post("size_delete/{id}",[SizeController::class,'destroy']);
 //Comment
 Route::get("comment_list",[CommentController::class,'index']);
 Route::post("comment_delete/{id}",[CommentController::class,'destroy']);
+
+
+// Order
+Route::get("order_list",[OrderController::class,'index']);
+Route::get("order_show/{id}",[OrderController::class,'show']);
+Route::get("print_order/{id}",[OrderController::class,'print_order']);
+Route::post("order_update/{id}",[OrderController::class,'update']);
+
+
+
+//Inventory
+Route::get("inventory_list",[InventoryController::class,'index']);
+Route::post("filter_by_date",[InventoryController::class,'filter_by_date']);
+Route::post("subs365days",[InventoryController::class,'subs365days']);
+Route::post("thisMonth",[InventoryController::class,'thisMonth']);
+Route::get("update_inventory/{id}",[InventoryController::class,'update_inventory']);
+
+
+
+
+//////////////////////////////   Client ///////////////////////////
+Route::get('home',[PagesController::class,'index']);
+Route::get('menu',[PagesController::class,'menu']);
+Route::get('menu/{id}',[PagesController::class,'detail']);
+Route::post('Login',[PagesController::class,'postDangnhap']);
+Route::get('qltk/{id}',[PagesController::class,'qltt']);
+Route::post('changePassword',[UserController::class,'changePassWord']);
+Route::post('changeCus',[PagesController::class,'changeCus']);
+Route::post('postsignUp', [UserController::class,'register']);
+Route::get('logout', [UserController::class,'logout']);
+Route::get('search/{key}',[PagesController::class,'find']);
+Route::post('comment',[PagesController::class,'postComment']);
+Route::get('checkOut/{id}',[PagesController::class,'getCheckOut']);
+Route::post('postCheckOut',[CartController::class,'postCheckOut']);
+
+//cart
+Route::get('show','App\Http\Controllers\API\Client\CartController@show');
+Route::get('addtocart/{id}', [CartController::class,'addToCart']);
+Route::patch('update-cart', [ProductController::class, 'update']);
+

@@ -13,9 +13,15 @@
 			</tr>
 		  </thead>
 		  <tbody>
+			  @php
+				  $i=0;
+			  @endphp
 			@foreach($category as $cate)
+				@php
+					$i++;
+				@endphp
 				<tr>
-					<td>{{ $cate->id }}</td>
+					<td>{{ $i }}</td>
 					<td>{{ $cate->name }}</td>
 					<td>
 						<a href="/show_category/{{ $cate->id }}" class="active styling-edit" title="Sửa">

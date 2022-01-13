@@ -5,7 +5,7 @@
 	  <div class="table-responsive">
 		<table class="table table-striped b-t b-light" id="myTable">
 		  <thead>
-			<tr align="center">	
+			<tr align="center">
 				<th style="width:20px;">ID</th>
 				<th>Name</th>
 				<th>Price</th>
@@ -15,16 +15,22 @@
 			</tr>
 		  </thead>
 		  <tbody>
+			  @php
+				  $i=0;
+			  @endphp
 			@foreach($topping as $t)
+				@php
+					$i++;
+				@endphp
 				<tr>
-					<td>{{ $t->id }}</td>
+					<td>{{ $i }}</td>
 					<td>{{ $t->name }}</td>
 					<td>{{ number_format($t->price,0,',','.') }}đ</td>
 					<td>
-						<img src="http://127.0.0.1:8000/toppings//{{ $t->image }}" height="60" width="60">
+						<img src="http://127.0.0.1:8000/toppings/{{ $t->image }}" height="60" width="60">
 					</td>
 					<td>
-						<a href="/show_topping/{{ $t->id }}" class="active styling-edit" title="Sửa">
+						<a href="/topping_detail/{{ $t->id }}" class="active styling-edit" title="Sửa">
 						<i class="fa fa-pencil-square-o text-success text-active"></i></a>
 					</td>
 					<td>

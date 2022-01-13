@@ -17,6 +17,6 @@ class Size extends Model
     
     public function product()
     {
-        $this->hasMany("App\Models\Product","id","");
+        $this->belongsTo("App\Models\Product","id");
     }
 }

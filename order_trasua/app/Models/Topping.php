@@ -13,4 +13,5 @@ class Topping extends Model
     ];
     protected $primaryKey = 'id';
     protected $table = 'toppings';
+    
 }

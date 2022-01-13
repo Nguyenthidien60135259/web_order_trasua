@@ -15,19 +15,19 @@
                             ?>
                         <div class="panel-body">
                             <div class="position-center">
-                                <form id="add_topping" enctype="multipart/form-data" method="post">
+                                <form id="add_topping" method="post" enctype="multipart/form-data">
+                                    @csrf
 									<div class="form-group">
-										<label for="exampleInputEmail1">Tên topping</label>
-										<input type="text" name="name" class="form-control"> 
-									</div>
-									
-									<div class="form-group">
-										<label for="exampleInputEmail1">Hình ảnh topping</label>
-										<input type="file" name="image" class="form-control" id="exampleInputEmail1">
+										<label>Tên topping</label>
+										<input type="text" name="name" id="name" class="form-control">
 									</div>
 									<div class="form-group">
-										<label for="exampleInputEmail1">Giá bán</label>
-										<input type="number"  name="price" class="form-control price_format">
+										<label for="image">Hình ảnh topping</label>
+										<input type="file" name="image" id="image" class="form-control">
+									</div>
+									<div class="form-group">
+										<label>Giá bán</label>
+										<input type="number" name="price" id="price" class="form-control price_format">
 									</div>
 									<button type="submit" class="btn btn-info">Thêm topping</button>
                                 </form>
@@ -35,11 +35,10 @@
                         </div>
                     </section>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $("#add_topping").submit(function(event) {
             event.preventDefault();
-
             var formData = new FormData(this);
 
             $.ajaxSetup({
@@ -47,7 +46,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
+
             $.ajax({
                 type: "POST",
                 url: "{{ route('save_create_topping') }}",
@@ -58,7 +57,7 @@
                 success: () => {
                     location.href = '/topping_list';
                 },
-            }); 
+            });
         });
     </script>
 

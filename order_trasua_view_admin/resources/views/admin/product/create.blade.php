@@ -6,49 +6,78 @@
             <header class="panel-heading">
                     Thêm sản phẩm
             </header>
-                         <?php
-                            $message = Session::get('message');
-                            if($message){
-                                echo '<span class="text-alert">'.$message.'</span>';
-                                Session::put('message',null);
-                            }
-                            ?>
-                        <div class="panel-body">
-
-                            <div class="position-center">
-                                <form role="form" action="{{ route('save_create_product') }}" enctype="multipart/form-data" method="post">
-                                    {{ csrf_field() }}
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Tên sản phẩm</label>
-                                    <input type="text" data-validation="length" data-validation-length="min10" data-validation-error-msg="Làm ơn điền ít nhất 10 ký tự" name="name" class="form-control " placeholder="Tên sản phẩm""> 
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Hình ảnh sản phẩm</label>
-                                    <input type="file" name="image" class="form-control" id="exampleInputEmail1">
-                                </div>
-								<div class="form-group">
-                                    <label for="exampleInputPassword1">Mô tả sản phẩm</label>
-                                    <textarea style="resize: none"  rows="8" class="form-control" name="desc" id="ckeditor1" placeholder="Mô tả sản phẩm"></textarea>
-                                </div>
-								<div class="form-group">
-                                    <label for="exampleInputEmail1">Giá bán</label>
-                                    <input type="text" data-validation="length" data-validation-length="min5" data-validation-error-msg="Làm ơn điền số tiền" name="price" class="form-control price_format" id="" placeholder="Tên danh mục">
-                                </div>
-                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Danh mục sản phẩm</label>
-                                    <input type="text" data-validation="length" data-validation-length="min10" data-validation-error-msg="Làm ơn điền ít nhất 10 ký tự" name="category_id" class="form-control " placeholder="Tên sản phẩm""> 
-                                </div>
-                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Size</label>
-                                    <input type="text" data-validation="length" data-validation-length="min10" data-validation-error-msg="Làm ơn điền ít nhất 10 ký tự" name="size_id" class="form-control " placeholder="Tên sản phẩm""> 
-                                </div>
-                                <button type="submit" class="btn btn-info">Thêm sản phẩm</button>
-                                </form>
-                            </div>
+            <div class="panel-body">
+                <div class="position-center">
+                    <form id="add_product" enctype="multipart/form-data" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label>Tên sản phẩm</label>
+                            <input type="text" name="name" class="form-control" placeholder="Tên sản phẩm""> 
                         </div>
-                    </section>
-
+                                
+                        <div class="form-group">
+                            <label>Hình ảnh sản phẩm</label>
+                            <input type="file" name="image" class="form-control">
+                        </div>
+						<div class="form-group">
+                            <label>Mô tả sản phẩm</label>
+                            <textarea style="resize: none"  rows="8" class="form-control" name="desc" placeholder="Mô tả sản phẩm"></textarea>
+                        </div>
+						<div class="form-group">
+                            <label>Giá bán</label>
+                            <input type="number" name="price" class="form-control price_format">
+                        </div>
+                        <div class="form-group">
+                            <label>Giá gốc</label>
+                            <input type="number" name="price_cost" class="form-control price_format">
+                        </div>
+                        <div class="form-group">
+                            <label>Danh mục sản phẩm</label>
+                            <select name="category_id" class="form-control input-sm m-bot15">
+                                @foreach($category as $cate)
+                                    <option value="{{$cate->id}}">{{$cate->name}}</option>
+                                @endforeach 
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Size</label>
+                            <select name="size_id" class="form-control input-sm m-bot15">
+                                @foreach($size as $si)
+                                    <option value="{{$si->id}}">{{$si->name}}</option>
+                                @endforeach 
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-info">Thêm sản phẩm</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </div>
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $("#add_product").submit(function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $.ajax({
+                type: "POST",
+                url: "{{ route('save_create_product') }}",
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: () => {
+                    location.href = '/product_list';
+                },
+            }); 
+        });
+    </script>
 @endsection
 

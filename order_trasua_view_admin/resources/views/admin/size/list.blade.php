@@ -13,9 +13,15 @@
 			</tr>
 		  </thead>
 		  <tbody>
+			  @php
+				  $i=0;
+			  @endphp
 			@foreach($size as $s)
+				@php
+					$i++;
+				@endphp
 				<tr>
-					<td>{{ $s->id }}</td>
+					<td>{{ $i }}</td>
 					<td>{{ $s->name }}</td>
 					<td>
 						<a href="/show_size/{{ $s->id }}" class="active styling-edit" title="Sửa">

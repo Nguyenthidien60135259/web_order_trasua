@@ -4,7 +4,7 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Thêm danh mục
+                Thêm size
             </header>
                          <?php
                             $message = Session::get('message');
@@ -15,7 +15,7 @@
                         ?>
             <div class="panel-body">
                 <div class="position-center">
-                    <form action="{{ route('save_size') }}" method="post">
+                    <form action="{{ route('save_size') }}" method="post" >
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên size</label>

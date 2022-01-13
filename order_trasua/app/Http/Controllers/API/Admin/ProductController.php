@@ -8,6 +8,7 @@ use App\Models\Product,App\Models\Category;
 use App\Models\Size;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -33,13 +34,14 @@ class ProductController extends Controller
            'name' => 'required|string|max:50',
            'desc' => 'required|string',
            'price' => 'required|integer',
-           'size_id' => 'required|integer',
+           'price_cost' => 'required|integer',
+           'size_id' => 'required',
            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
            'category_id' => 'required'
         ]);
         if($validator->fails())
         {
-            return response()->json(['message'=>$validator->errors()],422);
+            return response()->json(['message'=>$validator->errors()]);
         }
         
         $image_name = time().'.'.$request->image->extension();
@@ -49,14 +51,19 @@ class ProductController extends Controller
             'name' => $request->name,
             'desc'=> $request->desc,
             'price' => $request->price,
+            'price_cost' => $request->price_cost,
             'size_id' => $request->size_id,
             'image' => $image_name,
             'category_id'=> $request->category_id,
         ]);
         $product->save();
+       
         return response()->json([
             'message' => "Create Product Successfully!!",
-            'data' => $product
+            'data' => [
+                "product"=>$product,
+                
+            ]
         ]);
     }
 
@@ -64,8 +71,16 @@ class ProductController extends Controller
     public function show(Request $request,$id)
     {
         $product = Product::find($id);
+        $category = Category::all();
+        $size = Size::all();
         if($product){
-            return response()->json(["data"=>$product]);
+            return response()->json([
+                "data"=>[
+                    "product"=>$product,
+                    "category"=>$category,
+                    "size"=>$size
+                ]
+            ]);
         }
         else{
             return response()->json(["message"=>"Not found"]);
@@ -79,11 +94,11 @@ class ProductController extends Controller
         if($product){
             $validator = Validator::make($request->all(),[
                 'name' => 'required|string|max:50',
-                'desc' => 'required|string',
                 'price' => 'required|integer',
+                'price_cost' => 'required|integer',
+                'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:5000',
+                'desc' => 'required',
                 'size_id' => 'required|integer',
-                'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'status' => 'required|integer',
                 'category_id' => 'required'
             ]);
             if($validator->fails()){
@@ -102,13 +117,14 @@ class ProductController extends Controller
             }
             $product->update([
                 'name' => $request->name,
-                'desc' => $request->desc,
                 'price' => $request->price,
-                'size_id' => $request->size_id,
+                'price_cost' => $request->price_cost,
                 'image' => $image_name,
-                'status' => $request->status,
+                'desc' => $request->desc,
+                'size_id' => $request->size_id,
                 'category_id' => $request->category_id
             ]);
+            $product->save();
             return response()->json([
                 'message'=>"Update Product Successfully!!",
                 'data'=>$product
